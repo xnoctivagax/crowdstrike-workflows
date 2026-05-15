@@ -1,5 +1,3 @@
-# This is an exported workflow. Editing this file is not recommended.
-
 name: Slack Containment Alerts - SOARGREEN
 trigger:
     next:
