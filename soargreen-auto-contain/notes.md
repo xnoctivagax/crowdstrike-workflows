@@ -34,6 +34,9 @@ Block Kit formatted. Includes hostname, severity, local IP, process, SHA256, des
 4. Add Get Device Details action, device_id: `${Trigger.Detection.EPP.Sensor.SensorID}`
 5. Add Contain Device action, same device_id
 6. Add Slack v2 chat.postMessage with Block Kit JSON from the YAML
-7. Replace placeholders with real values
-8. Tag a test host with `SOARGreen`, fire a controlled detection (EICAR or similar). Note: EICAR usually fires as low severity, you may need a Critical-severity test detection or temporarily lower the threshold to test.
+   - **API credentials:** pick your Slack integration from the dropdown (this becomes `config_id` in the YAML)
+   - **Channel:** the Slack channel ID (Not Channel Name) to post to (replace `SLACK_CHANNEL_ID_HERE`)
+   - **Block Kit JSON:** use the JSON from the YAML's `json` field
+8. Replace placeholders with real values
+9. Tag a test host with `SOARGreen`, fire a controlled detection (EICAR or similar). Note: EICAR usually fires as low severity, you may need a Critical-severity test detection or temporarily lower the threshold to test.
 
