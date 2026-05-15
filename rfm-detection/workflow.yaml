@@ -1,0 +1,46 @@
+name: RFM Mode Detection - Testing
+trigger:
+    next:
+        - GetDeviceDetails
+    event: HostState/Support/HostInRFM
+    name: Host state > Support > Host in Reduced Functionality Mode (RFM)
+    type: Signal
+    version_constraint: ~1
+actions:
+    GetDeviceDetails:
+        id: ACTION_ID_PLACEHOLDER
+        default_name: Get device details
+        name: Get device details
+        next:
+            - SlackV2ChatPostMessage
+        properties:
+            device_id: ${Trigger.HostState.Device.SensorID}
+        version_constraint: ~1
+    SlackV2ChatPostMessage:
+        id: ACTION_ID_PLACEHOLDER
+        default_name: Slack v2 - Chat PostMessage
+        name: Slack v2 - Chat PostMessage
+        properties:
+            config_id: SLACK_CONFIG_ID_HERE
+            json:
+                blocks:
+                    - blocks:
+                        - text:
+                            text: |-
+                                ⚠️ *Host entered Reduced Functionality Mode (RFM)* ⚠️
+
+                                A sensor is checking in but not fully protecting the host.
+                            type: mrkdwn
+                          type: section
+                        - text:
+                            text: |-
+                                *Host:* ${data['GetDeviceDetails.Hostname']}
+                                *OS:* ${data['GetDeviceDetails.PlatformName']}
+                                *Sensor version:* ${data['GetDeviceDetails.AgentVersion']}
+                                *Last seen:* ${data['GetDeviceDetails.LastSeen']}
+
+                                <https://falcon.crowdstrike.com/hosts-v2/devices/host-management|View in Falcon>
+                            type: mrkdwn
+                          type: section
+                channel: SLACK_CHANNEL_ID_HERE
+        version_constraint: ~0
