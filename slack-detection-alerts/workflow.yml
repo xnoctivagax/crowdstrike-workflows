@@ -1,0 +1,34 @@
+name: Slack Detection Alerts
+description: Posts CrowdStrike EPP detections into a Slack channel with formatted context
+trigger:
+    next:
+        - GetDeviceDetails
+    event: Investigatable/EPP
+    name: Detection > EPP Detection
+    type: Signal
+    version_constraint: ~1
+actions:
+    GetDeviceDetails:
+        id: ACTION_ID_PLACEHOLDER
+        name: Get device details
+        next:
+            - SlackV2ChatPostMessage
+        properties:
+            device_id: ${Trigger.Detection.EPP.Sensor.SensorID}
+        version_constraint: ~1
+    SlackV2ChatPostMessage:
+        id: ACTION_ID_PLACEHOLDER
+        name: Slack v2 - Chat PostMessage
+        properties:
+            config_id: SLACK_CONFIG_ID_HERE
+            json:
+                blocks:
+                    - text:
+                        text: "\U0001F6A8 *New Detection!* \U0001F6A8\n\n*Host:* ${data['Trigger.Detection.EPP.Sensor.Hostname']}\n*Severity:* ${data['Trigger.Detection.SeverityDisplayName']}\n*Local IP (endpoint):* ${data['GetDeviceDetails.LocalIP']}\n*Process Name:* ${data['Trigger.Detection.EPP.Process.ImageFileName']}\n*SHA256:* ${data['Trigger.Detection.EPP.Process.SHA256']}\n*Description:* ${data['Trigger.Detection.Description']}\n\n<https://falcon.crowdstrike.com/activity-v2/detections/${data['Trigger.Detection.DetectionID']}|View in Falcon>"
+                        type: mrkdwn
+                      type: section
+                channel: SLACK_CHANNEL_ID_HERE
+                mrkdwn: true
+                text: ${data['Trigger.Detection.EPP.Sensor.Hostname']}
+                thread_ts: ""
+        version_constraint: ~0
