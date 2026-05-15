@@ -1,0 +1,50 @@
+# This is an exported workflow. Editing this file is not recommended.
+
+name: Slack Containment Alerts - SOARGREEN
+trigger:
+    next:
+        - severity_is_equal_to_critical_sensor_host_tags_includes_falcongroupingtagssoargreen
+    event: Investigatable/EPP
+    name: Detection > EPP Detection
+    type: Signal
+    version_constraint: ~1
+actions:
+    ContainDevice:
+        id: ACTION_ID_PLACEHOLDER
+        default_name: Contain device
+        name: Contain device
+        next:
+            - SlackV2ChatPostMessage
+        properties:
+            device_id: ${Trigger.Detection.EPP.Sensor.SensorID}
+    GetDeviceDetails:
+        id: ACTION_ID_PLACEHOLDER
+        default_name: Get device details
+        name: Get device details
+        next:
+            - ContainDevice
+        properties:
+            device_id: ${Trigger.Detection.EPP.Sensor.SensorID}
+        version_constraint: ~1
+    SlackV2ChatPostMessage:
+        id: ACTION_ID_PLACEHOLDER
+        default_name: Slack v2 - Chat PostMessage
+        name: Slack v2 - Chat PostMessage
+        properties:
+            config_id: SLACK_CONFIG_ID_HERE
+            json:
+                blocks:
+                    - text:
+                        text: "\U0001F6E1️ *Auto-containment triggered* \U0001F6E1️\n\n*Host:* ${data['Trigger.Detection.EPP.Sensor.Hostname']}\n*Severity:* ${data['Trigger.Detection.SeverityDisplayName']}\n*Local IP (endpoint):* ${data['GetDeviceDetails.LocalIP']}\n*Process Name:* ${data['Trigger.Detection.EPP.Process.ImageFileName']}\n*SHA256:* ${data['Trigger.Detection.EPP.Process.SHA256']}\n*Description:* ${data['Trigger.Detection.Description']}\n\nHostTag `SOARGreen` matched - host has been isolated from the network.\n\n<https://falcon.crowdstrike.com/activity-v2/detections/${data['Trigger.Detection.DetectionID']}|View in Falcon>"
+                        type: mrkdwn
+                      type: section
+                channel: SLACK_CHANNEL_ID_HERE
+        version_constraint: ~0
+conditions:
+    severity_is_equal_to_critical_sensor_host_tags_includes_falcongroupingtagssoargreen:
+        next:
+            - GetDeviceDetails
+        expression: Trigger.Detection.Severity:5+Trigger.Detection.EPP.Sensor.Tags:['FalconGroupingTags/SOARGreen']
+        display:
+            - Severity is equal to Critical
+            - Sensor host tags includes FalconGroupingTags/SOARGreen
