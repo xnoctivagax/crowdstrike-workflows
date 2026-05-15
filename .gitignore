@@ -1,0 +1,12 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.key
+credentials.json
+
+# Unsanitised workflow exports
+*-unsanitised.yml
+*-original.yml
