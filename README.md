@@ -5,7 +5,7 @@ Sanitised examples of Falcon Fusion workflows I've built. Each folder is one wor
 ## Workflows
 
 - [slack-detection-alerts](./slack-detection-alerts) - posts every EPP detection to Slack with formatted context
-- [soargreen-auto-contain](./soargreen-auto-contain) - auto-contains hosts on Critical EPP detections, tag-gated. Built and tested, not currently in production.
+- [soargreen-auto-contain](./soargreen-auto-contain) - auto-contains hosts on Critical EPP detections, tag-gated. 
 - [rfm-detection-alert](./rfm-detection-alert) - posts a Slack alert when a host enters Reduced Functionality Mode.
 - (many more to come)
 
