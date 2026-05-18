@@ -22,9 +22,9 @@ Block Kit formatted. Includes hostname, severity, local IP, process, SHA256, des
 
 ## Sanitisation
 
-- `SLACK_CONFIG_ID_HERE` — Slack integration config ID
-- `SLACK_CHANNEL_ID_HERE` — target channel
-- `ACTION_ID_PLACEHOLDER` — internal action instance IDs
+- `SLACK_CONFIG_ID_HERE` - Slack integration config ID
+- `SLACK_CHANNEL_ID_HERE` - target channel
+- `ACTION_ID_PLACEHOLDER` - internal action instance IDs
 
 ## Rebuild
 
@@ -38,5 +38,5 @@ Block Kit formatted. Includes hostname, severity, local IP, process, SHA256, des
    - **Channel:** the Slack channel ID (Not Channel Name) to post to (replace `SLACK_CHANNEL_ID_HERE`)
    - **Block Kit JSON:** use the JSON from the YAML's `json` field
 8. Replace placeholders with real values
-9. Tag a test host with `SOARGreen`, fire a controlled detection (EICAR or similar). Note: EICAR usually fires as low severity, you may need a Critical-severity test detection or temporarily lower the threshold to test.
+9. Tag a test host with `SOARGreen`, fire a controlled detection (EICAR or similar).
 
