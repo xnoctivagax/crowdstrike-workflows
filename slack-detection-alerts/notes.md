@@ -14,9 +14,9 @@ Hostname, severity, local IP, process name, SHA256, description, and a deep link
 
 ## Sanitisation
 
-- `SLACK_CONFIG_ID_HERE` — Slack integration config ID
-- `SLACK_CHANNEL_ID_HERE` — target channel
-- `ACTION_ID_PLACEHOLDER` — internal action instance IDs (Fusion regenerates these on import)
+- `SLACK_CONFIG_ID_HERE` - Slack integration config ID
+- `SLACK_CHANNEL_ID_HERE` - target channel
+- `ACTION_ID_PLACEHOLDER` - internal action instance IDs (Fusion regenerates these on import)
 
 ## Rebuild
 
